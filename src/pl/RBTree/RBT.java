@@ -1,6 +1,7 @@
 package pl.RBTree;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class RBT {
@@ -13,6 +14,64 @@ public class RBT {
 
 	public RBT() {
 		root = null;
+	}
+
+	public void preOrder() {
+		System.out.print("PreOrder: ");
+		preOrder(root);
+		System.out.println();
+
+	}
+
+	private void preOrder(Node wz) {
+		if (wz == null)
+			return;
+		System.out.print(wz.getData() + " ");
+		preOrder(wz.getLeft());
+		preOrder(wz.getRight());
+
+	}
+
+	public void postOrder() {
+		System.out.print("PostOrder: ");
+		postOrder(root);
+		System.out.println();
+
+	}
+
+	private void postOrder(Node wz) {
+		if (wz == null)
+			return;
+		postOrder(wz.getLeft());
+		postOrder(wz.getRight());
+		System.out.print(wz.getData() + " ");
+
+	}
+
+	public void przejscieWszerz() {
+		LinkedList<Comparable> ll = new LinkedList<>();
+		System.out.print("Przejscie Wszerz: ");
+		if (root == null)
+			return;
+		ll.add(root.getData());
+		przejscieWszerz(ll, root);
+
+		System.out.println();
+	}
+
+	private void przejscieWszerz(LinkedList<Comparable> ll, Node wz) {
+		if (ll.isEmpty() == false) {
+			if (wz.getLeft() != null)
+				ll.add(wz.getLeft().getData());
+			if (wz.getRight() != null)
+				ll.add(wz.getRight().getData());
+			System.out.print(ll.removeFirst() + " ");
+			if (ll.isEmpty() == true)
+				return;
+			Node temp = getNode(ll.getFirst());
+			przejscieWszerz(ll, temp);
+
+		}
 	}
 
 	public void add(Comparable obj, int wiersz) {
